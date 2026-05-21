@@ -135,7 +135,7 @@
       animation:partnersFade .9s cubic-bezier(.16,1,.3,1) .55s both;
     }
     .partners-label{
-      font-size:.52rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#333;
+      font-size:.52rem;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:#555;
     }
     .partners-logos{
       display:flex;align-items:center;justify-content:center;
@@ -222,8 +222,8 @@
     .mq-track{display:flex;white-space:nowrap;flex-shrink:0;animation:mq-left 32s linear infinite}
     .mq-row.rev .mq-track{animation-name:mq-right}
     .mq-row:hover .mq-track{animation-play-state:paused}
-    .mq-item{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#484848;padding:.2rem 1.75rem}
-    .mq-dot{color:#1E1E1E;margin-right:.25rem}
+    .mq-item{font-size:.62rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:#555;padding:.2rem 1.75rem}
+    .mq-dot{color:#444;margin-right:.25rem}
     @keyframes mq-left{from{transform:translateX(0)}to{transform:translateX(-50%)}}
     @keyframes mq-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
@@ -268,8 +268,8 @@
       display:flex;align-items:center;justify-content:space-between;
       margin-bottom:1.25rem;padding-bottom:1rem;border-bottom:1px solid #111;
     }
-    .tuner-name{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#888}
-    .tuner-ver{font-family:'Space Mono',monospace;font-size:.6rem;color:#444}
+    .tuner-name{font-size:.65rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#aaa}
+    .tuner-ver{font-family:'Space Mono',monospace;font-size:.6rem;color:#666}
     /* Presets */
     .tuner-presets{display:flex;background:#111;border:1px solid #161616;border-radius:8px;padding:3px;gap:2px;margin-bottom:1.25rem}
     .preset{
@@ -287,7 +287,7 @@
     #scope-canvas{width:100%;height:72px}
     .scope-label{
       position:absolute;top:6px;left:10px;
-      font-family:'Space Mono',monospace;font-size:.55rem;color:#444;letter-spacing:.1em;
+      font-family:'Space Mono',monospace;font-size:.55rem;color:#555;letter-spacing:.1em;
     }
     /* Note display */
     .note-row{
@@ -299,13 +299,13 @@
       letter-spacing:-.05em;line-height:1;color:#F8F8F8;
       font-family:'Space Grotesk',sans-serif;
     }
-    .note-oct{font-size:1.2rem;font-weight:500;color:#888;vertical-align:super;margin-left:1px}
+    .note-oct{font-size:1.2rem;font-weight:500;color:#999;vertical-align:super;margin-left:1px}
     .note-meta{text-align:right}
     .note-freq{font-family:'Space Mono',monospace;font-size:1.1rem;font-weight:700;color:#F8F8F8;margin-bottom:.2rem}
-    .note-status-txt{font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#666}
+    .note-status-txt{font-size:.6rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#888}
     /* Meter */
     .meter-wrap{background:#0D0D0D;border:1px solid #111;border-radius:8px;padding:.75rem 1rem;margin-bottom:.85rem}
-    .meter-lbls{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.55rem;color:#555;margin-bottom:.5rem}
+    .meter-lbls{display:flex;justify-content:space-between;font-family:'Space Mono',monospace;font-size:.55rem;color:#666;margin-bottom:.5rem}
     .meter-bar{position:relative;height:4px;background:#111;border-radius:2px}
     .meter-center{position:absolute;left:50%;top:-5px;width:1px;height:14px;background:#1E1E1E;transform:translateX(-50%)}
     .meter-needle{
@@ -321,11 +321,11 @@
     .cents-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.85rem}
     .cents-val{
       font-family:'Space Mono',monospace;font-size:1.6rem;font-weight:700;
-      color:#888;transition:color .25s;
+      color:#aaa;transition:color .25s;
     }
     .cents-val.in{color:#4ADE80}
     .cents-val.out{color:#EF4444}
-    .cents-lbl{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#555}
+    .cents-lbl{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#666}
     /* Spectrum */
     .spectrum-wrap{margin-bottom:1rem}
     #spec-canvas{width:100%;height:44px}
@@ -333,7 +333,7 @@
     .tuner-statusbar{
       display:flex;justify-content:space-between;align-items:center;
       padding-top:.75rem;border-top:1px solid #111;
-      font-family:'Space Mono',monospace;font-size:.55rem;color:#444;letter-spacing:.08em;text-transform:uppercase;
+      font-family:'Space Mono',monospace;font-size:.55rem;color:#555;letter-spacing:.08em;text-transform:uppercase;
     }
     .status-dot-wrap{display:flex;align-items:center;gap:5px}
     .sdot{width:5px;height:5px;border-radius:50%;background:#1A1A1A}
@@ -363,14 +363,14 @@
       padding:1.25rem;
     }
     .synth-scope-label{
-      font-family:'Space Mono',monospace;font-size:.55rem;color:#555;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;
+      font-family:'Space Mono',monospace;font-size:.55rem;color:#666;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;
     }
     #synth-scope{width:100%;height:80px;background:#060606;border-radius:6px;border:1px solid #111}
     .synth-controls{
       display:grid;grid-template-columns:1fr 1fr;gap:.6rem;margin-top:1rem;
     }
     .ctrl-knob-row{display:flex;flex-direction:column;gap:.25rem}
-    .ctrl-label{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#666}
+    .ctrl-label{font-size:.58rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#888}
     .ctrl-slider{
       -webkit-appearance:none;appearance:none;
       width:100%;height:3px;background:#111;border-radius:2px;outline:none;
@@ -383,7 +383,7 @@
     .ctrl-slider::-webkit-slider-thumb:hover{background:#888}
     .synth-note-display{
       text-align:center;margin-top:.75rem;
-      font-family:'Space Mono',monospace;font-size:.75rem;color:#2A2A2A;letter-spacing:.1em;
+      font-family:'Space Mono',monospace;font-size:.75rem;color:#666;letter-spacing:.1em;
       text-transform:uppercase;min-height:1.2em;
     }
     /* Chord presets */
@@ -404,8 +404,8 @@
       display:flex;justify-content:space-between;align-items:center;
       margin-bottom:1rem;
     }
-    .kb-title{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#555}
-    .kb-hint{font-family:'Space Mono',monospace;font-size:.55rem;color:#444;letter-spacing:.05em}
+    .kb-title{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#777}
+    .kb-hint{font-family:'Space Mono',monospace;font-size:.55rem;color:#555;letter-spacing:.05em}
     .keyboard{
       display:flex;position:relative;height:120px;
       user-select:none;touch-action:none;
@@ -420,10 +420,10 @@
     .wkey.pressed,.wkey:active{background:#1E1E1E}
     .wkey .kn{
       position:absolute;bottom:8px;left:50%;transform:translateX(-50%);
-      font-family:'Space Mono',monospace;font-size:.5rem;color:#2A2A2A;letter-spacing:.03em;
+      font-family:'Space Mono',monospace;font-size:.5rem;color:#444;letter-spacing:.03em;
       pointer-events:none;white-space:nowrap;
     }
-    .wkey.pressed .kn{color:#888}
+    .wkey.pressed .kn{color:#aaa}
     /* Black keys: positioned absolutely over white keys */
     .bkey{
       position:absolute;top:0;width:12%;height:60%;z-index:2;
@@ -436,17 +436,17 @@
     .kb-octave-labels{
       display:flex;justify-content:space-around;margin-top:.5rem;
     }
-    .oct-lbl{font-family:'Space Mono',monospace;font-size:.5rem;color:#1E1E1E;letter-spacing:.1em}
+    .oct-lbl{font-family:'Space Mono',monospace;font-size:.5rem;color:#444;letter-spacing:.1em}
     /* Active note display */
     .active-note-bar{
       margin-top:.75rem;padding-top:.75rem;border-top:1px solid #111;
       display:flex;align-items:center;justify-content:space-between;
     }
     .an-notes{
-      font-family:'Space Mono',monospace;font-size:.7rem;color:#2A2A2A;
+      font-family:'Space Mono',monospace;font-size:.7rem;color:#777;
       letter-spacing:.08em;min-height:1.2em;text-transform:uppercase;
     }
-    .an-hint{font-size:.58rem;color:#1E1E1E;letter-spacing:.08em}
+    .an-hint{font-size:.58rem;color:#555;letter-spacing:.08em}
 
     /* ================================================
        PLUGIN GRID
@@ -467,10 +467,10 @@
     .pcard:hover .plink{color:#F8F8F8;gap:8px}
     .picon{width:36px;height:36px;margin-bottom:1.25rem;color:#666;transition:color .25s}
     .pname{font-size:.98rem;font-weight:700;letter-spacing:-.01em;margin-bottom:.25rem}
-    .ptag{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#5599cc;margin-bottom:.75rem}
+    .ptag{font-size:.58rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#00c8e8;margin-bottom:.75rem}
     .pdesc{font-size:.8rem;color:#999;line-height:1.65;margin-bottom:1.25rem}
     .plink{
-      font-size:.72rem;font-weight:600;letter-spacing:.04em;color:#5599cc;
+      font-size:.72rem;font-weight:600;letter-spacing:.04em;color:#00c8e8;
       display:inline-flex;align-items:center;gap:4px;transition:color .2s,gap .2s;
     }
 
@@ -555,7 +555,7 @@
     }
     .foot-social a:hover{border-color:#555;color:#F8F8F8;background:rgba(248,248,248,.04)}
     .foot-col{}
-    .foot-col-title{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#555;margin-bottom:1rem}
+    .foot-col-title{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#777;margin-bottom:1rem}
     .foot-col ul{display:flex;flex-direction:column;gap:.6rem}
     .foot-col li a{font-size:.8rem;color:#888;transition:color .2s;line-height:1}
     .foot-col li a:hover{color:#CCC}
@@ -564,10 +564,10 @@
       display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
       max-width:1280px;margin:0 auto;
     }
-    .foot-copy{font-size:.68rem;color:#2E2E2E}
+    .foot-copy{font-size:.68rem;color:#555}
     .foot-bottom-links{display:flex;gap:1.5rem}
-    .foot-bottom-links a{font-size:.68rem;color:#2E2E2E;transition:color .2s}
-    .foot-bottom-links a:hover{color:#666}
+    .foot-bottom-links a{font-size:.68rem;color:#555;transition:color .2s}
+    .foot-bottom-links a:hover{color:#aaa}
 
     /* ================================================
        3D PLUGIN SHOWCASE
