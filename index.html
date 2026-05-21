@@ -18,7 +18,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
-  <script src="https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.min.js" defer></script>
   <style>
     /* ================================================
        RESET & BASE
@@ -574,7 +574,7 @@
     ================================================ */
     #plugin-showcase{
       position:relative;
-      padding:5.5rem clamp(1.5rem,6vw,6rem) 4rem;
+      padding:calc(64px + 3rem) clamp(1.5rem,6vw,6rem) 4rem;
       background:linear-gradient(160deg,#050508 0%,#08080e 55%,#050508 100%);
       border-bottom:1px solid #141420;overflow:hidden;
     }
@@ -614,7 +614,7 @@
       position:relative;display:flex;flex-direction:column;align-items:center;
     }
     #plugin-3d-canvas{
-      width:100%;border-radius:16px;cursor:grab;
+      display:block;border-radius:16px;cursor:grab;max-width:100%;
       box-shadow:0 0 80px rgba(0,229,255,.09),0 0 160px rgba(180,79,254,.06);
     }
     #plugin-3d-canvas:active{cursor:grabbing}
@@ -1607,22 +1607,31 @@ function sizeCanvas(canvas){
 /* ================================================
    3D PLUGIN SHOWCASE (Three.js)
 ================================================ */
-(function(){
+window.addEventListener('load', function(){
   const canvas=document.getElementById('plugin-3d-canvas');
-  if(!canvas||typeof THREE==='undefined') return;
+  if(!canvas||typeof THREE==='undefined'){
+    console.warn('[3D] canvas or THREE not found'); return;
+  }
 
   function getSize(){
-    const w=canvas.parentElement.clientWidth||600;
-    const h=Math.round(Math.min(w*0.6,460));
-    return {w:Math.round(w),h};
+    const wrap=canvas.parentElement;
+    const w=Math.round(wrap.getBoundingClientRect().width)||640;
+    const h=Math.round(Math.min(w*0.58,480));
+    return {w,h};
   }
 
   const {w,h}=getSize();
-  const renderer=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
-  renderer.setSize(w,h); renderer.setPixelRatio(Math.min(devicePixelRatio,2));
-  renderer.toneMapping=THREE.ACESFilmicToneMapping; renderer.toneMappingExposure=1.15;
+  let renderer;
+  try{
+    renderer=new THREE.WebGLRenderer({canvas,antialias:true,powerPreference:'high-performance'});
+  }catch(e){ console.error('[3D] WebGL init failed',e); return; }
+  renderer.setSize(w,h,true);
+  renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+  renderer.toneMapping=THREE.ACESFilmicToneMapping;
+  renderer.toneMappingExposure=1.2;
 
   const scene=new THREE.Scene();
+  scene.background=new THREE.Color(0x050508);
   const camera=new THREE.PerspectiveCamera(42,w/h,0.1,100);
   camera.position.set(0,0.15,7.2);
 
@@ -1796,9 +1805,10 @@ function sizeCanvas(canvas){
 
   function resize3D(){
     const {w,h}=getSize();
-    renderer.setSize(w,h); camera.aspect=w/h; camera.updateProjectionMatrix();
+    renderer.setSize(w,h,true); camera.aspect=w/h; camera.updateProjectionMatrix();
   }
-  window.addEventListener('resize',resize3D,{passive:true});
+  let resizeTimer;
+  window.addEventListener('resize',()=>{clearTimeout(resizeTimer);resizeTimer=setTimeout(resize3D,120);},{passive:true});
 
   let t3=0;
   function animate3D(){
@@ -1813,7 +1823,7 @@ function sizeCanvas(canvas){
     renderer.render(scene,camera);
   }
   animate3D();
-})();
+});
 
 /* ================================================
    SYNTH KEYBOARD (ResoChord Demo)
