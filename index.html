@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SYNTERLAB - Professional Audio Plugins for DAW Producers</title>
+  <meta name="description" content="Six professional-grade plugins built for modern DAWs. Tuners, synthesizers, and world instruments. Native. Offline. Opens in milliseconds." />
+  <meta property="og:title" content="SYNTERLAB - Professional Audio Plugins" />
+  <meta property="og:description" content="Six professional-grade plugins built for modern DAWs. Native. Offline. Opens in milliseconds." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="SYNTERLAB - Professional Audio Plugins" />
+  <meta name="twitter:description" content="Six professional-grade plugins built for modern DAWs. Native. Offline. Opens in milliseconds." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* ======================
+       BASE RESET AND GLOBALS
+    ====================== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      background: #080808;
+      color: #F8F8F8;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: inherit; text-decoration: none; }
+    button { cursor: pointer; font-family: inherit; }
+    ul { list-style: none; }
+
+    /* ======================
+       NAVBAR
+    ====================== */
+    #navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      padding: 0 clamp(1.5rem, 5vw, 4rem);
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid transparent;
+      transition: background 0.35s ease, border-color 0.35s ease, backdrop-filter 0.35s ease;
+    }
+    #navbar.scrolled {
+      background: rgba(8,8,8,0.88);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-color: #1A1A1A;
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo-svg { width: 28px; height: 28px; flex-shrink: 0; }
+    .nav-wordmark {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .nav-buy-btn {
+      background: #F8F8F8;
+      color: #080808;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.5rem 1.5rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      font-family: inherit;
+      transition: opacity 0.2s;
+    }
+    .nav-buy-btn:hover { opacity: 0.85; }
+
+    /* ======================
+       HERO
+    ====================== */
+    #hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 6rem clamp(1.5rem, 6vw, 6rem) 4rem;
+      overflow: hidden;
+    }
+    #particles-canvas {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .hero-inner { position: relative; z-index: 1; max-width: 800px; }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #888;
+      border: 1px solid #1A1A1A;
+      border-radius: 9999px;
+      padding: 0.35rem 1rem;
+      margin-bottom: 2rem;
+    }
+    .pulse-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #F8F8F8;
+      animation: pulse-anim 2s ease-in-out infinite;
+    }
+    @keyframes pulse-anim {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.3; transform: scale(0.7); }
+    }
+    .hero-h1 {
+      font-size: clamp(48px, 8vw, 96px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 1.5rem;
+    }
+    .hero-sub {
+      font-size: clamp(0.95rem, 2vw, 1.1rem);
+      color: #888;
+      max-width: 540px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.7;
+    }
+    .hero-ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #F8F8F8;
+      color: #080808;
+      border: none;
+      border-radius: 9999px;
+      padding: 0.85rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      font-family: inherit;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-2px); }
+    .btn-primary .price-tag {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #666;
+      background: rgba(0,0,0,0.1);
+      border-radius: 9999px;
+      padding: 0.15rem 0.55rem;
+    }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: #F8F8F8;
+      border: 1px solid #333;
+      border-radius: 9999px;
+      padding: 0.85rem 2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      font-family: inherit;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { border-color: #888; transform: translateY(-2px); }
+
+    /* ======================
+       MARQUEE
+    ====================== */
+    #marquee {
+      padding: 2.25rem 0;
+      overflow: hidden;
+      border-top: 1px solid #1A1A1A;
+      border-bottom: 1px solid #1A1A1A;
+    }
+    .marquee-row {
+      display: flex;
+      overflow: hidden;
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+      mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+      margin-bottom: 0.6rem;
+    }
+    .marquee-row:last-child { margin-bottom: 0; }
+    .marquee-track {
+      display: flex;
+      white-space: nowrap;
+      animation: marquee-left 30s linear infinite;
+      flex-shrink: 0;
+    }
+    .marquee-row.reverse .marquee-track { animation-name: marquee-right; }
+    .marquee-row:hover .marquee-track { animation-play-state: paused; }
+    .marquee-item {
+      font-size: 0.68rem;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #444;
+      padding: 0.25rem 1.75rem;
+    }
+    .marquee-sep { color: #252525; margin-right: 0.25rem; }
+    @keyframes marquee-left {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes marquee-right {
+      from { transform: translateX(-50%); }
+      to { transform: translateX(0); }
+    }
+
+    /* ======================
+       SHARED SECTION STYLES
+    ====================== */
+    section { padding: clamp(4rem, 8vw, 7rem) clamp(1.5rem, 6vw, 6rem); }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-h2 {
+      font-size: clamp(1.75rem, 4vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .section-sub {
+      font-size: clamp(0.88rem, 1.5vw, 1rem);
+      color: #888;
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    /* ======================
+       FEATURED PLUGIN
+    ====================== */
+    #featured { border-top: 1px solid #1A1A1A; }
+    .featured-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .featured-badge {
+      display: inline-block;
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #888;
+      border: 1px solid #1A1A1A;
+      border-radius: 9999px;
+      padding: 0.3rem 0.9rem;
+      margin-bottom: 1.25rem;
+    }
+    .featured-h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 1rem;
+    }
+    .featured-desc {
+      color: #888;
+      font-size: 0.93rem;
+      line-height: 1.75;
+      margin-bottom: 1.75rem;
+    }
+    .feature-list { display: flex; flex-direction: column; gap: 0.6rem; }
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.88rem;
+      color: #CCC;
+    }
+    .feature-check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      border: 1.5px solid #2A2A2A;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .feature-check svg { width: 10px; height: 10px; }
+
+    /* ======================
+       TUNER DEMO
+    ====================== */
+    .tuner-panel {
+      background: #0D0D0D;
+      border: 1px solid #222;
+      border-radius: 16px;
+      padding: clamp(1.25rem, 3vw, 2rem);
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+    }
+    .tuner-presets {
+      display: flex;
+      background: #111;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      padding: 3px;
+      margin-bottom: 1.75rem;
+      gap: 2px;
+    }
+    .preset-btn {
+      flex: 1;
+      background: transparent;
+      border: none;
+      color: #555;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 0.45rem 0.4rem;
+      border-radius: 6px;
+      font-family: inherit;
+      transition: background 0.2s, color 0.2s;
+    }
+    .preset-btn.active { background: #222; color: #F8F8F8; }
+    .tuner-note-display {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .note-letter {
+      font-size: clamp(4rem, 10vw, 6rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: #F8F8F8;
+      display: inline-block;
+    }
+    .note-octave {
+      font-size: 1.4rem;
+      font-weight: 500;
+      color: #888;
+      vertical-align: super;
+      margin-left: 2px;
+    }
+    .tuner-meter-wrap {
+      background: #111;
+      border: 1px solid #1A1A1A;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+    }
+    .meter-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.58rem;
+      color: #444;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.5rem;
+    }
+    .meter-bar-container {
+      position: relative;
+      height: 6px;
+      background: #1A1A1A;
+      border-radius: 3px;
+    }
+    .meter-center-line {
+      position: absolute;
+      left: 50%;
+      top: -4px;
+      width: 2px;
+      height: 14px;
+      background: #2D2D2D;
+      transform: translateX(-50%);
+    }
+    .meter-needle {
+      position: absolute;
+      top: 50%;
+      width: 14px; height: 14px;
+      border-radius: 50%;
+      background: #555;
+      border: 2px solid #0D0D0D;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      transition: left 0.09s linear, background 0.25s;
+    }
+    .meter-needle.in-tune { background: #4ADE80; }
+    .meter-needle.out-tune { background: #EF4444; }
+    .tuner-cent-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+    .cent-value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: -0.02em;
+      color: #555;
+      transition: color 0.25s;
+    }
+    .cent-value.in-tune { color: #4ADE80; }
+    .cent-value.out-tune { color: #EF4444; }
+    .freq-value { font-size: 0.83rem; color: #555; font-weight: 500; }
+    .tuner-status {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 0.75rem;
+      border-top: 1px solid #1A1A1A;
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .status-algo { color: #333; }
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #333;
+    }
+    .status-indicator.active { color: #888; }
+    .status-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #2A2A2A;
+    }
+    .status-indicator.active .status-dot {
+      background: #F8F8F8;
+      animation: pulse-anim 1.5s ease-in-out infinite;
+    }
+    .tuner-start-btn {
+      width: 100%;
+      margin-top: 1.25rem;
+      background: #F8F8F8;
+      color: #080808;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-family: inherit;
+      transition: opacity 0.2s;
+    }
+    .tuner-start-btn:hover { opacity: 0.85; }
+    .tuner-start-btn.listening { background: #1A1A1A; color: #666; }
+
+    /* ======================
+       PLUGIN GRID
+    ====================== */
+    #plugins { border-top: 1px solid #1A1A1A; }
+    .plugin-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #111;
+      border: 1px solid #1A1A1A;
+      border-radius: 12px;
+      overflow: hidden;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .plugin-card {
+      background: #0E0E0E;
+      padding: clamp(1.5rem, 3vw, 2rem);
+      transition: background 0.25s, transform 0.25s;
+      border: 1px solid transparent;
+    }
+    .plugin-card:hover {
+      background: #141414;
+      border-color: #333;
+      transform: translateY(-3px);
+    }
+    .plugin-icon {
+      width: 38px; height: 38px;
+      margin-bottom: 1.25rem;
+      color: #666;
+    }
+    .plugin-name {
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+    }
+    .plugin-tag {
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 0.75rem;
+    }
+    .plugin-desc {
+      font-size: 0.82rem;
+      color: #555;
+      line-height: 1.65;
+      margin-bottom: 1.25rem;
+    }
+    .plugin-link {
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #555;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: color 0.2s, gap 0.2s;
+    }
+    .plugin-card:hover .plugin-link { color: #F8F8F8; gap: 8px; }
+
+    /* ======================
+       PRICING
+    ====================== */
+    #pricing { border-top: 1px solid #1A1A1A; }
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+    .pricing-card {
+      background: #111;
+      border: 1px solid #1A1A1A;
+      border-radius: 12px;
+      padding: clamp(1.5rem, 3vw, 2.25rem);
+      display: flex;
+      flex-direction: column;
+    }
+    .pricing-card.featured {
+      background: #F8F8F8;
+      border-color: #F8F8F8;
+      color: #080808;
+    }
+    .pricing-plan {
+      font-size: 0.63rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #888;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-card.featured .pricing-plan { color: #555; }
+    .pricing-price {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+    }
+    .pricing-tagline {
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      color: inherit;
+    }
+    .pricing-features {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      margin-bottom: 2rem;
+    }
+    .pricing-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.82rem;
+      color: #888;
+    }
+    .pricing-card.featured .pricing-feature { color: #555; }
+    .pricing-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: #2A2A2A;
+      flex-shrink: 0;
+    }
+    .pricing-card.featured .pricing-dot { background: #AAA; }
+    .pricing-cta {
+      width: 100%;
+      padding: 0.75rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      border: none;
+      font-family: inherit;
+      transition: opacity 0.2s;
+    }
+    .pricing-cta:hover { opacity: 0.85; }
+    .pricing-card:not(.featured) .pricing-cta { background: #1A1A1A; color: #F8F8F8; }
+    .pricing-card.featured .pricing-cta { background: #080808; color: #F8F8F8; }
+
+    /* ======================
+       DAW COMPATIBILITY
+    ====================== */
+    #daw { border-top: 1px solid #1A1A1A; }
+    .daw-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: clamp(1.25rem, 3vw, 2.5rem);
+      margin-bottom: 2.5rem;
+    }
+    .daw-name {
+      font-size: clamp(0.78rem, 1.5vw, 0.93rem);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: #444;
+      transition: color 0.2s;
+      cursor: default;
+    }
+    .daw-name:hover { color: #F8F8F8; }
+    .format-badges {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.75rem;
+    }
+    .format-badge {
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #888;
+      border: 1px solid #222;
+      border-radius: 9999px;
+      padding: 0.4rem 1.2rem;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .format-badge:hover { border-color: #888; color: #F8F8F8; }
+
+    /* ======================
+       TESTIMONIALS
+    ====================== */
+    #testimonials { border-top: 1px solid #1A1A1A; }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .testimonial-card {
+      background: #111;
+      border: 1px solid #1A1A1A;
+      border-radius: 12px;
+      padding: clamp(1.5rem, 2.5vw, 2rem);
+    }
+    .testimonial-quote {
+      font-style: italic;
+      font-size: 0.88rem;
+      color: #888;
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+    }
+    .testimonial-author { font-size: 0.82rem; font-weight: 700; }
+    .testimonial-role { font-size: 0.72rem; color: #555; margin-top: 2px; }
+
+    /* ======================
+       FOOTER
+    ====================== */
+    footer {
+      border-top: 1px solid #1A1A1A;
+      padding: 2rem clamp(1.5rem, 6vw, 6rem);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .footer-logo { display: flex; align-items: center; gap: 8px; }
+    .footer-logo svg { width: 22px; height: 22px; }
+    .footer-wordmark { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; }
+    .footer-copy { font-size: 0.72rem; color: #444; text-align: center; flex: 1; }
+    .footer-social a {
+      display: inline-flex;
+      width: 36px; height: 36px;
+      border: 1px solid #1A1A1A;
+      border-radius: 50%;
+      align-items: center; justify-content: center;
+      color: #555;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .footer-social a:hover { border-color: #888; color: #F8F8F8; }
+
+    /* ======================
+       SCROLL REVEAL
+    ====================== */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ======================
+       RESPONSIVE
+    ====================== */
+    @media (max-width: 900px) {
+      .featured-grid { grid-template-columns: 1fr; }
+      .plugin-grid { grid-template-columns: repeat(2, 1fr); }
+      .pricing-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .testimonials-grid { grid-template-columns: 1fr; max-width: 500px; }
+    }
+    @media (max-width: 580px) {
+      .plugin-grid { grid-template-columns: 1fr; }
+      footer { flex-direction: column; text-align: center; }
+      .footer-copy { order: 3; flex: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav id="navbar">
+    <a href="#" class="nav-logo">
+      <!-- 8-pointed star SVG logo -->
+      <svg class="nav-logo-svg" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 0 L18.8 13.2 L32 16 L18.8 18.8 L16 32 L13.2 18.8 L0 16 L13.2 13.2 Z" fill="#F8F8F8"/>
+        <path d="M16 7 L17.6 13.4 L24 15 L17.6 16.6 L16 23 L14.4 16.6 L8 15 L14.4 13.4 Z" fill="#080808"/>
+        <path d="M16 5 L16.7 7.8 L19.5 8.5 L16.7 9.2 L16 12 L15.3 9.2 L12.5 8.5 L15.3 7.8 Z" fill="rgba(248,248,248,0.55)"/>
+      </svg>
+      <span class="nav-wordmark">SYNTERLAB</span>
+    </a>
+    <button class="nav-buy-btn" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">Buy</button>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <canvas id="particles-canvas"></canvas>
+    <div class="hero-inner">
+      <div class="hero-badge reveal">
+        <span class="pulse-dot"></span>
+        Professional Audio Plugins for DAW
+      </div>
+      <h1 class="hero-h1 reveal" style="transition-delay:0.1s">
+        Precision Tools.<br>Bold Creators.
+      </h1>
+      <p class="hero-sub reveal" style="transition-delay:0.2s">
+        Six professional-grade plugins built for modern DAWs. Tuners, synthesizers, and world instruments. Native. Offline. Opens in milliseconds.
+      </p>
+      <div class="hero-ctas reveal" style="transition-delay:0.3s">
+        <button class="btn-primary" onclick="document.getElementById('pricing').scrollIntoView({behavior:'smooth'})">
+          Get Studio Bundle
+          <span class="price-tag">$69</span>
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M6.5 1v11M1.5 7.5l5 5 5-5" stroke="#666" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="btn-secondary" onclick="document.getElementById('featured').scrollIntoView({behavior:'smooth'})">
+          Try Free
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none"><path d="M1 6.5h11M7 1.5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div id="marquee">
+    <div class="marquee-row" id="marquee-row-1">
+      <div class="marquee-track" id="mq1a"></div>
+      <div class="marquee-track" id="mq1b" aria-hidden="true"></div>
+    </div>
+    <div class="marquee-row reverse" id="marquee-row-2">
+      <div class="marquee-track" id="mq2a"></div>
+      <div class="marquee-track" id="mq2b" aria-hidden="true"></div>
+    </div>
+  </div>
+
+  <!-- FEATURED PLUGIN -->
+  <section id="featured">
+    <div class="featured-grid">
+      <!-- Left: text -->
+      <div>
+        <span class="featured-badge reveal">Featured Plugin</span>
+        <h2 class="featured-h2 reveal" style="transition-delay:0.05s">SynTuner Pro</h2>
+        <p class="featured-desc reveal" style="transition-delay:0.1s">
+          Professional chromatic tuner with plus or minus 1 cent accuracy. Eight historical temperaments. Presets for guitar, bass, violin, and chromatic. Native. Offline. Opens in 200ms.
+        </p>
+        <ul class="feature-list reveal" style="transition-delay:0.15s">
+          <li class="feature-item">
+            <span class="feature-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.2 2.5L8 2.5" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Plus or minus 1 cent accuracy
+          </li>
+          <li class="feature-item">
+            <span class="feature-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.2 2.5L8 2.5" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            8 historical temperaments
+          </li>
+          <li class="feature-item">
+            <span class="feature-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.2 2.5L8 2.5" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Guitar, Bass, Violin, Chromatic presets
+          </li>
+          <li class="feature-item">
+            <span class="feature-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.2 2.5L8 2.5" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Offline native performance
+          </li>
+          <li class="feature-item">
+            <span class="feature-check">
+              <svg viewBox="0 0 10 10" fill="none"><path d="M2 5l2.2 2.5L8 2.5" stroke="#F8F8F8" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            Opens in under 200ms
+          </li>
+        </ul>
+      </div>
+      <!-- Right: Tuner demo -->
+      <div class="reveal" style="transition-delay:0.1s">
+        <div class="tuner-panel">
+          <div class="tuner-presets">
+            <button class="preset-btn active" data-preset="guitar">Guitar</button>
+            <button class="preset-btn" data-preset="bass">Bass</button>
+            <button class="preset-btn" data-preset="violin">Violin</button>
+            <button class="preset-btn" data-preset="chromatic">Chromatic</button>
+          </div>
+          <div class="tuner-note-display">
+            <span class="note-letter" id="tuner-note">A<span class="note-octave" id="tuner-octave">4</span></span>
+          </div>
+          <div class="tuner-meter-wrap">
+            <div class="meter-labels">
+              <span>-50</span><span>-25</span><span>0</span><span>+25</span><span>+50</span>
+            </div>
+            <div class="meter-bar-container">
+              <div class="meter-center-line"></div>
+              <div class="meter-needle" id="tuner-needle"></div>
+            </div>
+          </div>
+          <div class="tuner-cent-row">
+            <span class="cent-value" id="tuner-cents">+00</span>
+            <span class="freq-value" id="tuner-freq">440.0 Hz</span>
+          </div>
+          <div class="tuner-status">
+            <span class="status-algo">AUTOCORRELATION</span>
+            <span class="status-indicator" id="status-indicator">
+              <span class="status-dot"></span>
+              <span id="status-text">STANDBY</span>
+            </span>
+          </div>
+          <button class="tuner-start-btn" id="tuner-start-btn">Start Tuner</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PLUGIN GRID -->
+  <section id="plugins">
+    <div class="section-header">
+      <h2 class="section-h2 reveal">The Full Suite</h2>
+      <p class="section-sub reveal" style="transition-delay:0.05s">Six precision-engineered plugins. One complete toolkit.</p>
+    </div>
+    <div class="plugin-grid">
+
+      <!-- SynTuner Pro -->
+      <div class="plugin-card reveal">
+        <svg class="plugin-icon" viewBox="0 0 40 40" fill="none">
+          <circle cx="20" cy="20" r="13" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="20" y1="9" x2="20" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="20" y1="26" x2="20" y2="31" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="9" y1="20" x2="14" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="26" y1="20" x2="31" y2="20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="20" y1="20" x2="26" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="20" cy="20" r="2.5" fill="currentColor"/>
+        </svg>
+        <div class="plugin-name">SynTuner Pro</div>
+        <div class="plugin-tag">Tuner</div>
+        <p class="plugin-desc">Chromatic tuner with cent-perfect accuracy and eight historical temperaments.</p>
+        <a class="plugin-link" href="#">Learn More
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h9M6 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <!-- HarmonicDrift -->
+      <div class="plugin-card reveal" style="transition-delay:0.05s">
+        <svg class="plugin-icon" viewBox="0 0 40 40" fill="none">
+          <path d="M6 26 Q13 8 20 20 Q27 32 34 12" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M6 30 Q13 14 20 26 Q27 36 34 18" stroke="currentColor" stroke-width="0.8" fill="none" stroke-linecap="round" opacity="0.45"/>
+          <circle cx="20" cy="20" r="2" fill="currentColor"/>
+        </svg>
+        <div class="plugin-name">HarmonicDrift</div>
+        <div class="plugin-tag">Pitch Processor</div>
+        <p class="plugin-desc">Vintage pitch manipulation and harmonizer for expressive layering.</p>
+        <a class="plugin-link" href="#">Learn More
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h9M6 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <!-- PolyString -->
+      <div class="plugin-card reveal" style="transition-delay:0.1s">
+        <svg class="plugin-icon" viewBox="0 0 40 40" fill="none">
+          <line x1="10" y1="10" x2="10" y2="32" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="17" y1="8" x2="17" y2="34" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="24" y1="9" x2="24" y2="33" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="31" y1="12" x2="31" y2="30" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M8 15 Q20 12 34 15" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
+          <path d="M8 26 Q20 29 34 26" stroke="currentColor" stroke-width="0.8" fill="none" opacity="0.4"/>
+        </svg>
+        <div class="plugin-name">PolyString</div>
+        <div class="plugin-tag">String Engine</div>
+        <p class="plugin-desc">Multi-articulation bowed and plucked string synthesis engine.</p>
+        <a class="plugin-link" href="#">Learn More
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h9M6 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <!-- PercMatrix -->
+      <div class="plugin-card reveal" style="transition-delay:0.05s">
+        <svg class="plugin-icon" viewBox="0 0 40 40" fill="none">
+          <rect x="7" y="18" width="7" height="14" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="17" y="13" width="7" height="19" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+          <rect x="27" y="20" width="7" height="12" rx="1.5" stroke="currentColor" stroke-width="1.5"/>
+          <line x1="7" y1="11" x2="11" y2="16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <line x1="20" y1="9" x2="20" y2="12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <div class="plugin-name">PercMatrix</div>
+        <div class="plugin-tag">Percussion</div>
+        <p class="plugin-desc">World percussion drum machine with deep velocity and round-robin sampling.</p>
+        <a class="plugin-link" href="#">Learn More
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h9M6 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <!-- AirFlute -->
+      <div class="plugin-card reveal" style="transition-delay:0.1s">
+        <svg class="plugin-icon" viewBox="0 0 40 40" fill="none">
+          <path d="M8 22 Q20 6 32 22" stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <line x1="20" y1="22" x2="20" y2="34" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="14" cy="26" r="1.5" fill="currentColor" opacity="0.65"/>
+          <circle cx="20" cy="28.5" r="1.5" fill="currentColor" opacity="0.65"/>
+          <circle cx="26" cy="26" r="1.5" fill="currentColor" opacity="0.65"/>
+          <path d="M14 14 Q17 9 20 12 Q23 15 27 10" stroke="currentColor" stroke-width="0.9" fill="none" opacity="0.4" stroke-linecap="round"/>
+        </svg>
+        <div class="plugin-name">AirFlute</div>
+        <div class="plugin-tag">Woodwind Synth</div>
+        <p class="plugin-desc">Cinematic woodwind synthesizer with breath modeling and vibrato control.</p>
+        <a class="plugin-link" href="#">Learn More
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h9M6 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+      <!-- ResoChord -->
+      <div class="plugin-card reveal" style="transition-delay:0.15s">
+        <svg class="plugin-icon" viewBox="0 0 40 40" fill="none">
+          <circle cx="14" cy="21" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="26" cy="21" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="20" cy="12" r="5.5" stroke="currentColor" stroke-width="1.5"/>
+          <circle cx="20" cy="19" r="2" fill="currentColor" opacity="0.5"/>
+        </svg>
+        <div class="plugin-name">ResoChord</div>
+        <div class="plugin-tag">Chord Engine</div>
+        <p class="plugin-desc">Resonant chord and overtone generator for lush harmonic textures.</p>
+        <a class="plugin-link" href="#">Learn More
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 5.5h9M6 1.5l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="section-header">
+      <h2 class="section-h2 reveal">Simple Pricing</h2>
+      <p class="section-sub reveal" style="transition-delay:0.05s">No subscriptions. No iLok. Yours forever.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-plan">Free</div>
+        <div class="pricing-price">$0</div>
+        <div class="pricing-tagline">SynTuner Lite</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature"><span class="pricing-dot"></span>Chromatic tuner basic mode</li>
+          <li class="pricing-feature"><span class="pricing-dot"></span>Standard temperament only</li>
+          <li class="pricing-feature"><span class="pricing-dot"></span>No DAW integration</li>
+        </ul>
+        <button class="pricing-cta">Download Free</button>
+      </div>
+      <div class="pricing-card reveal" style="transition-delay:0.07s">
+        <div class="pricing-plan">Essential</div>
+        <div class="pricing-price">$29</div>
+        <div class="pricing-tagline">SynTuner Pro + 2 Plugins</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature"><span class="pricing-dot"></span>SynTuner Pro full version</li>
+          <li class="pricing-feature"><span class="pricing-dot"></span>2 plugins of your choice</li>
+          <li class="pricing-feature"><span class="pricing-dot"></span>VST3 and AU support</li>
+          <li class="pricing-feature"><span class="pricing-dot"></span>Lifetime license</li>
+        </ul>
+        <button class="pricing-cta">Get Essential</button>
+      </div>
+      <div class="pricing-card featured reveal" style="transition-delay:0.14s">
+        <div class="pricing-plan">Studio</div>
+        <div class="pricing-price">$69</div>
+        <div class="pricing-tagline">Full Bundle</div>
+        <ul class="pricing-features">
+          <li class="pricing-feature"><span class="pricing-dot"></span>All 6 plugins included</li>
+          <li class="pricing-feature"><span class="pricing-dot"></span>VST3, AU, and AAX</li>
+          <li class="pricing-feature"><span class="pricing-dot"></span>Lifetime updates</li>
+          <li class="pricing-feature"><span class="pricing-dot"></span>Priority support</li>
+          <li class="pricing-feature"><span class="pricing-dot"></span>Future plugins included</li>
+        </ul>
+        <button class="pricing-cta">Get Studio Bundle</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAW COMPATIBILITY -->
+  <section id="daw">
+    <div class="section-header">
+      <h2 class="section-h2 reveal">Works With Your Workflow</h2>
+      <p class="section-sub reveal" style="transition-delay:0.05s">VST3, AU, and AAX. Built for every major DAW.</p>
+    </div>
+    <div class="daw-logos reveal" style="transition-delay:0.1s">
+      <span class="daw-name">Ableton Live</span>
+      <span class="daw-name">FL Studio</span>
+      <span class="daw-name">Logic Pro</span>
+      <span class="daw-name">Pro Tools</span>
+      <span class="daw-name">Reaper</span>
+      <span class="daw-name">Cubase</span>
+      <span class="daw-name">Studio One</span>
+      <span class="daw-name">Bitwig</span>
+    </div>
+    <div class="format-badges reveal" style="transition-delay:0.15s">
+      <span class="format-badge">VST3</span>
+      <span class="format-badge">AU</span>
+      <span class="format-badge">AAX</span>
+      <span class="format-badge">Standalone</span>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-header">
+      <h2 class="section-h2 reveal">Trusted by Producers</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <p class="testimonial-quote">"SynTuner Pro is the most accurate tuner I have used in any DAW. Clean UI, zero latency."</p>
+        <div class="testimonial-author">Marcus T.</div>
+        <div class="testimonial-role">Session Guitarist</div>
+      </div>
+      <div class="testimonial-card reveal" style="transition-delay:0.07s">
+        <p class="testimonial-quote">"PolyString fills a gap no other plugin has. The articulations feel alive."</p>
+        <div class="testimonial-author">Yuna K.</div>
+        <div class="testimonial-role">Film Composer</div>
+      </div>
+      <div class="testimonial-card reveal" style="transition-delay:0.14s">
+        <p class="testimonial-quote">"Finally a bundle that does not bloat my sessions. Everything loads instantly."</p>
+        <div class="testimonial-author">Dre M.</div>
+        <div class="testimonial-role">Hip Hop Producer</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-logo">
+      <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M16 0 L18.8 13.2 L32 16 L18.8 18.8 L16 32 L13.2 18.8 L0 16 L13.2 13.2 Z" fill="#F8F8F8"/>
+        <path d="M16 7 L17.6 13.4 L24 15 L17.6 16.6 L16 23 L14.4 16.6 L8 15 L14.4 13.4 Z" fill="#080808"/>
+      </svg>
+      <span class="footer-wordmark">SYNTERLAB</span>
+    </div>
+    <p class="footer-copy">2025 Synterlab. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://x.com/Synterspace" target="_blank" rel="noopener" aria-label="X (Twitter)">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M12.6 1h2.4L9.8 7.1 15.6 15H10L6.4 10 2.3 15H0l5.5-6.3L0 1h5.2l3.3 4.5L12.6 1Zm-.9 12.5h1.3L4.4 2.3H3.1L11.7 13.5Z" fill="currentColor"/>
+        </svg>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    // ======================
+    // NAVBAR SCROLL EFFECT
+    // ======================
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    // ======================
+    // FLOATING PARTICLES
+    // ======================
+    (function () {
+      const canvas = document.getElementById('particles-canvas');
+      const ctx = canvas.getContext('2d');
+      let W, H, particles = [];
+
+      function resize() {
+        const hero = document.getElementById('hero');
+        W = canvas.width = hero.offsetWidth;
+        H = canvas.height = hero.offsetHeight;
+      }
+
+      function init() {
+        particles = [];
+        for (let i = 0; i < 60; i++) {
+          particles.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            r: Math.random() * 1.4 + 0.4,
+            vx: (Math.random() - 0.5) * 0.22,
+            vy: (Math.random() - 0.5) * 0.22,
+            o: Math.random() * 0.11 + 0.02
+          });
+        }
+      }
+
+      function draw() {
+        ctx.clearRect(0, 0, W, H);
+        for (const p of particles) {
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < -10) p.x = W + 10;
+          else if (p.x > W + 10) p.x = -10;
+          if (p.y < -10) p.y = H + 10;
+          else if (p.y > H + 10) p.y = -10;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(248,248,248,${p.o})`;
+          ctx.fill();
+        }
+        requestAnimationFrame(draw);
+      }
+
+      window.addEventListener('resize', () => { resize(); init(); }, { passive: true });
+      resize(); init(); draw();
+    })();
+
+    // ======================
+    // MARQUEE CONTENT
+    // ======================
+    (function () {
+      const plugins = ['SynTuner Pro', 'HarmonicDrift', 'PolyString', 'PercMatrix', 'AirFlute', 'ResoChord'];
+      const daws = ['Ableton Live', 'FL Studio', 'Logic Pro', 'Pro Tools', 'Reaper', 'Cubase'];
+
+      function buildItems(arr, reps) {
+        return Array(reps).fill(arr).flat()
+          .map(n => `<span class="marquee-item">${n}<span class="marquee-sep"> /</span></span>`).join('');
+      }
+
+      const h1 = buildItems(plugins, 7);
+      const h2 = buildItems(daws, 10);
+      document.getElementById('mq1a').innerHTML = h1;
+      document.getElementById('mq1b').innerHTML = h1;
+      document.getElementById('mq2a').innerHTML = h2;
+      document.getElementById('mq2b').innerHTML = h2;
+    })();
+
+    // ======================
+    // SCROLL REVEAL
+    // ======================
+    (function () {
+      const els = document.querySelectorAll('.reveal');
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(el => io.observe(el));
+    })();
+
+    // ======================
+    // WEB AUDIO TUNER
+    // ======================
+    (function () {
+      const NOTES = ['C','C#','D','D#','E','F','F#','G','G#','A','A#','B'];
+      const A4_FREQ = 440;
+      const A4_MIDI = 69;
+
+      let audioCtx = null, analyser = null, micStream = null, rafId = null, running = false;
+      let smoothedFreq = 0;
+
+      const startBtn   = document.getElementById('tuner-start-btn');
+      const noteEl     = document.getElementById('tuner-note');
+      const octaveEl   = document.getElementById('tuner-octave');
+      const centsEl    = document.getElementById('tuner-cents');
+      const freqEl     = document.getElementById('tuner-freq');
+      const needle     = document.getElementById('tuner-needle');
+      const statusInd  = document.getElementById('status-indicator');
+      const statusTxt  = document.getElementById('status-text');
+
+      // Preset switcher
+      document.querySelectorAll('.preset-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+        });
+      });
+
+      // Autocorrelation pitch detection
+      function detectPitch(buffer, sampleRate) {
+        const n = buffer.length;
+        const half = Math.floor(n / 2);
+
+        // RMS gate
+        let rms = 0;
+        for (let i = 0; i < n; i++) rms += buffer[i] * buffer[i];
+        rms = Math.sqrt(rms / n);
+        if (rms < 0.006) return -1;
+
+        let best = -1, bestVal = 0, last = 1, goingUp = false;
+
+        for (let lag = 0; lag < half; lag++) {
+          let c = 0;
+          for (let i = 0; i < half; i++) c += buffer[i] * buffer[i + lag];
+          c = (2 * c) / n;
+          if (goingUp && c > 0.9 && c > last) { best = lag; bestVal = c; }
+          if (!goingUp && c < last) goingUp = true;
+          last = c;
+        }
+        if (bestVal < 0.01 || best < 1) return -1;
+        return sampleRate / best;
+      }
+
+      function freqToInfo(freq) {
+        const semis = 12 * Math.log2(freq / A4_FREQ);
+        const rounded = Math.round(semis);
+        const cents = Math.round((semis - rounded) * 100);
+        const midi = A4_MIDI + rounded;
+        const note = NOTES[((midi % 12) + 12) % 12];
+        const octave = Math.floor(midi / 12) - 1;
+        return { note, octave, cents };
+      }
+
+      function updateUI(freq) {
+        if (freq <= 0) return;
+        smoothedFreq = smoothedFreq === 0 ? freq : smoothedFreq * 0.84 + freq * 0.16;
+        const { note, octave, cents } = freqToInfo(smoothedFreq);
+
+        // Note and octave (preserve octave span inside)
+        noteEl.firstChild.textContent = note;
+        octaveEl.textContent = octave;
+
+        // Cents display
+        const sign = cents >= 0 ? '+' : '';
+        centsEl.textContent = sign + String(Math.abs(cents)).padStart(2, '0');
+        freqEl.textContent = smoothedFreq.toFixed(1) + ' Hz';
+
+        // Needle: 50% = center (0 cents), range -50..+50 cents -> 0%..100%
+        const pct = Math.max(2, Math.min(98, 50 + (cents / 50) * 50));
+        needle.style.left = pct + '%';
+
+        const inTune = Math.abs(cents) <= 5;
+        needle.className = 'meter-needle' + (inTune ? ' in-tune' : ' out-tune');
+        centsEl.className = 'cent-value' + (inTune ? ' in-tune' : ' out-tune');
+      }
+
+      function loop() {
+        if (!analyser) return;
+        const buf = new Float32Array(analyser.fftSize);
+        analyser.getFloatTimeDomainData(buf);
+        const f = detectPitch(buf, audioCtx.sampleRate);
+        updateUI(f);
+        rafId = requestAnimationFrame(loop);
+      }
+
+      async function start() {
+        try {
+          micStream = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: false, noiseSuppression: false }, video: false });
+          audioCtx = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 44100 });
+          analyser = audioCtx.createAnalyser();
+          analyser.fftSize = 8192;
+          const src = audioCtx.createMediaStreamSource(micStream);
+          src.connect(analyser);
+          running = true;
+          smoothedFreq = 0;
+          startBtn.textContent = 'Stop Tuner';
+          startBtn.classList.add('listening');
+          statusInd.classList.add('active');
+          statusTxt.textContent = 'LISTENING';
+          loop();
+        } catch (err) {
+          statusTxt.textContent = 'MIC DENIED';
+          console.warn('Mic error:', err);
+        }
+      }
+
+      function stop() {
+        if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+        if (micStream) { micStream.getTracks().forEach(t => t.stop()); micStream = null; }
+        if (audioCtx) { audioCtx.close(); audioCtx = null; }
+        analyser = null; running = false; smoothedFreq = 0;
+        startBtn.textContent = 'Start Tuner';
+        startBtn.classList.remove('listening');
+        statusInd.classList.remove('active');
+        statusTxt.textContent = 'STANDBY';
+        needle.style.left = '50%';
+        needle.className = 'meter-needle';
+        centsEl.textContent = '+00';
+        centsEl.className = 'cent-value';
+        freqEl.textContent = '440.0 Hz';
+        noteEl.firstChild.textContent = 'A';
+        octaveEl.textContent = '4';
+      }
+
+      startBtn.addEventListener('click', () => running ? stop() : start());
+    })();
+  </script>
+</body>
+</html>
