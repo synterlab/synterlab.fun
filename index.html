@@ -287,7 +287,7 @@
     .cents-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.85rem}
     .cents-val{
       font-family:'Space Mono',monospace;font-size:1.6rem;font-weight:700;
-      color:#222;transition:color .25s;
+      color:#888;transition:color .25s;
     }
     .cents-val.in{color:#4ADE80}
     .cents-val.out{color:#EF4444}
@@ -299,7 +299,7 @@
     .tuner-statusbar{
       display:flex;justify-content:space-between;align-items:center;
       padding-top:.75rem;border-top:1px solid #111;
-      font-family:'Space Mono',monospace;font-size:.55rem;color:#222;letter-spacing:.08em;text-transform:uppercase;
+      font-family:'Space Mono',monospace;font-size:.55rem;color:#444;letter-spacing:.08em;text-transform:uppercase;
     }
     .status-dot-wrap{display:flex;align-items:center;gap:5px}
     .sdot{width:5px;height:5px;border-radius:50%;background:#1A1A1A}
@@ -328,8 +328,8 @@
       background:#0A0A0A;border:1px solid #1A1A1A;border-radius:12px;
       padding:1.25rem;
     }
-    .synth-scope-label{color:#555!important;
-      font-family:'Space Mono',monospace;font-size:.55rem;color:#2A2A2A;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;
+    .synth-scope-label{
+      font-family:'Space Mono',monospace;font-size:.55rem;color:#555;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem;
     }
     #synth-scope{width:100%;height:80px;background:#060606;border-radius:6px;border:1px solid #111}
     .synth-controls{
@@ -636,36 +636,6 @@
 </section>
 
 <!-- ================================================
-     STATS
-================================================ -->
-<div id="stats">
-  <div class="stat-item reveal">
-    <div class="stat-number"><span class="count" data-target="6">0</span></div>
-    <div class="stat-label">Pro Plugins</div>
-  </div>
-  <div class="stat-item reveal" style="transition-delay:.05s">
-    <div class="stat-number"><span class="count" data-target="200">0</span><span class="stat-unit">ms</span></div>
-    <div class="stat-label">Load Time</div>
-  </div>
-  <div class="stat-item reveal" style="transition-delay:.1s">
-    <div class="stat-number"><span class="count" data-target="8">0</span></div>
-    <div class="stat-label">Temperaments</div>
-  </div>
-  <div class="stat-item reveal" style="transition-delay:.15s">
-    <div class="stat-number"><span class="count" data-target="3">0</span></div>
-    <div class="stat-label">Formats (VST3, AU, AAX)</div>
-  </div>
-</div>
-
-<!-- ================================================
-     MARQUEE
-================================================ -->
-<div id="marquee">
-  <div class="mq-row"><div class="mq-track" id="mq1a"></div><div class="mq-track" id="mq1b" aria-hidden="true"></div></div>
-  <div class="mq-row rev"><div class="mq-track" id="mq2a"></div><div class="mq-track" id="mq2b" aria-hidden="true"></div></div>
-</div>
-
-<!-- ================================================
      TUNER DEMO
 ================================================ -->
 <section id="demo">
@@ -726,7 +696,7 @@
           </div>
           <!-- Spectrum -->
           <div style="flex:1;margin-left:1rem">
-            <div style="font-family:'Space Mono',monospace;font-size:.5rem;color:#222;letter-spacing:.08em;margin-bottom:.3rem">SPECTRUM</div>
+            <div style="font-family:'Space Mono',monospace;font-size:.5rem;color:#444;letter-spacing:.08em;margin-bottom:.3rem">SPECTRUM</div>
             <canvas id="spec-canvas" style="width:100%;height:36px;display:block;border-radius:4px;background:#060606"></canvas>
           </div>
         </div>
@@ -792,7 +762,7 @@
 
     <!-- Chord presets -->
     <div class="reveal">
-      <div style="text-align:center;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#2A2A2A;margin-bottom:1rem">CHORD PRESETS</div>
+      <div style="text-align:center;font-size:.6rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#555;margin-bottom:1rem">CHORD PRESETS</div>
       <div class="chord-bar" id="chord-bar">
         <button class="chord-btn" data-chord="Cmaj">C Maj</button>
         <button class="chord-btn" data-chord="Gmaj">G Maj</button>
@@ -823,6 +793,36 @@
     </div>
   </div>
 </section>
+
+<!-- ================================================
+     STATS
+================================================ -->
+<div id="stats">
+  <div class="stat-item reveal">
+    <div class="stat-number"><span class="count" data-target="6">0</span></div>
+    <div class="stat-label">Pro Plugins</div>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:.05s">
+    <div class="stat-number"><span class="count" data-target="200">0</span><span class="stat-unit">ms</span></div>
+    <div class="stat-label">Load Time</div>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:.1s">
+    <div class="stat-number"><span class="count" data-target="8">0</span></div>
+    <div class="stat-label">Temperaments</div>
+  </div>
+  <div class="stat-item reveal" style="transition-delay:.15s">
+    <div class="stat-number"><span class="count" data-target="3">0</span></div>
+    <div class="stat-label">Formats (VST3, AU, AAX)</div>
+  </div>
+</div>
+
+<!-- ================================================
+     MARQUEE
+================================================ -->
+<div id="marquee">
+  <div class="mq-row"><div class="mq-track" id="mq1a"></div><div class="mq-track" id="mq1b" aria-hidden="true"></div></div>
+  <div class="mq-row rev"><div class="mq-track" id="mq2a"></div><div class="mq-track" id="mq2b" aria-hidden="true"></div></div>
+</div>
 
 <!-- ================================================
      PLUGIN GRID
